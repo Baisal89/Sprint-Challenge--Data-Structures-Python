@@ -10,7 +10,7 @@ f = open('names_2.txt', 'r')
 names_2 = f.read().split("\n")  # List containing 10000 names
 f.close()
 
-# duplicates = []  # Return the list of duplicates in this data structure
+duplicates = []  # Return the list of duplicates in this data structure
 
 # # Replace the nested for loops below with your improvements
 # for name_1 in names_1:
@@ -29,7 +29,7 @@ class BST:
         # if new < node.value
         if value < self.value:
             # if left doesnt exist
-            if self.left is None:
+            if not self.left:
                 # creat left
                 self.left = BST(value)
             # else:
@@ -41,25 +41,25 @@ class BST:
         #if >=
         else:  # value is greater than or equal to
             # if right doesnt exist
-            if self.right is None:
+            if not self.right:
                 # creat right
                 self.right = BST(value)
             else:
                 self.right.insert(value)
 
-    def append(self, value):
-        # recursively
-        if value < self.value:
-            if not self.left:
-                self.left = BST(value)
-            else:
-                self.left.append(value)
+    # def append(self, value):
+    #     # recursively
+    #     if value < self.value:
+    #         if not self.left:
+    #             self.left = BST(value)
+    #         else:
+    #             self.left.append(value)
 
-        elif value >= self.value:
-            if self.right is None:
-                self.right = BST(value)
-            else:
-                self.right.append(value)
+    #     elif value >= self.value:
+    #         if self.right is None:
+    #             self.right = BST(value)
+    #         else:
+    #             self.right.append(value)
         
 
     #checking if specific value is in the tree
@@ -67,28 +67,22 @@ class BST:
         if target == self.value:
             return True
         if target < self.value:
-            if self.left is None:
+            if not self.left:
                 return False
-            else:
-                self.left.contains(target)
+            return self.left.contains(target)
         else:
-            if self.right is None:
+            if not self.right:
                 return False
-            else:
-                return self.right.contains(target)
+            return self.right.contains(target)
 
-duplicates = []
+
 
 bst = BST(names_1[0])
-names_1_d = [name for name in names_1[1:]]
-
-for name in names_1_d:
-    bst.insert(name)
-
-for name in names_2:
-    if bst.contains(name):
-        duplicates.append(name)
-
+for name_1 in names_1:
+    bst.insert(name_1)
+for name_2 in names_2:
+    if bst.contains(name_2):
+        duplicates.append(name_2)
 
 
 # for name_1 in names_1:
@@ -96,6 +90,10 @@ for name in names_2:
 # for name_2 in names_2:
 #     if bst.contains(name_2):
 #         duplicates.append(name_2)
+
+
+
+"runtime O(nlogn)"
 
 
 end_time = time.time()
